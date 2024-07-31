@@ -37,6 +37,10 @@ public class Mino {
     }
     
     public void draw(Graphics2D g2) {
-        
+        g2.setColor(b[0].c);
+        g2.fillRect(b[0].x - 2, b[0].y + 2, Block.SIZE - 4, Block.SIZE - 4);
+        g2.fillRect(b[1].x - 2, b[1].y + 2, Block.SIZE - 4, Block.SIZE - 4);
+        g2.fillRect(b[2].x - 2, b[2].y + 2, Block.SIZE - 4, Block.SIZE - 4);
+        g2.fillRect(b[3].x - 2, b[3].y + 2, Block.SIZE - 4, Block.SIZE - 4);
     }
 }
