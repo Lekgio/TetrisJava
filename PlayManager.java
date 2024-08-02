@@ -17,6 +17,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
+
 import TetrisJava.mino.Mino;
 import TetrisJava.mino.Block;
 import TetrisJava.mino.Mino_L1;
@@ -35,6 +36,9 @@ public class PlayManager {
     Mino currentMino;
     final int MINO_START_X;
     final int MINO_START_Y;
+
+    // Others
+    public static int dropInterval = 60; // mino drops in every 60 frames
     
 
     public PlayManager() {
