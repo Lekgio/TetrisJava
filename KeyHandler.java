@@ -19,9 +19,7 @@ public class KeyHandler implements KeyListener{
     public static boolean upPressed, downPressed, leftPressed, rightPressed;
     
     @Override
-    public void keyTyped(KeyEvent e) {
-        // TODO
-    }
+    public void keyTyped(KeyEvent e) {}
 
     @Override
     public void keyPressed(KeyEvent e) {
@@ -46,7 +44,5 @@ public class KeyHandler implements KeyListener{
     }
 
     @Override
-    public void keyReleased(KeyEvent e) {
-        // TODO
-    }
+    public void keyReleased(KeyEvent e) {}
 }
