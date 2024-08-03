@@ -17,6 +17,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
+import java.util.ArrayList;
 import java.util.Random;
 
 import TetrisJava.mino.Mino;
@@ -43,11 +44,14 @@ public class PlayManager {
     Mino currentMino;
     final int MINO_START_X;
     final int MINO_START_Y;
+    Mino nextMino;
+    final int NEXTMINO_X;
+    final int NEXTMINO_Y;
+    public static ArrayList<Block> staticBlocks = new ArrayList<>();
 
     // Others
     public static int dropInterval = 60; // mino drops in every 60 frames
     
-
     public PlayManager() {
         // Main Play Area Frame
         left_x = (GamePanel.WIDTH / 2) - (WIDTH / 2); // 1280/2 - 360/2 = 460
@@ -58,9 +62,14 @@ public class PlayManager {
         MINO_START_X = left_x + (WIDTH/2) - Block.SIZE;
         MINO_START_Y = top_y + Block.SIZE;
 
+        NEXTMINO_X = right_x + 175;
+        NEXTMINO_Y = top_y + 500;
+
         // Set the starting Mino
         currentMino = pickMino();
         currentMino.setXY(MINO_START_X, MINO_START_Y);
+        nextMino = pickMino();
+        nextMino.setXY(NEXTMINO_X, NEXTMINO_Y);
     }
     private Mino pickMino() {
         // Pick a random mino
@@ -80,7 +89,23 @@ public class PlayManager {
     }
 
     public void update() {
-        currentMino.update();
+        // CHeck if the currentMino is active
+        if (currentMino.active == false) {
+            // If the mino is not active, put it into the staticBlocks
+            staticBlocks.add(currentMino.b[0]);
+            staticBlocks.add(currentMino.b[1]);
+            staticBlocks.add(currentMino.b[2]);
+            staticBlocks.add(currentMino.b[3]);
+
+            // Replace the currentMino with the nextMino
+            currentMino = nextMino;
+            currentMino.setXY(MINO_START_X, MINO_START_Y);
+            nextMino = pickMino();
+            nextMino.setXY(NEXTMINO_X, NEXTMINO_Y);
+        }
+        else {
+            currentMino.update();
+        }
     }
 
     public void draw(Graphics2D g2) {
@@ -101,6 +126,14 @@ public class PlayManager {
         if(currentMino != null) {
             currentMino.draw(g2);
         }
+
+        // Draw the nextMino
+        nextMino.draw(g2);
+
+        // Draw Static Blocks
+        for (int i = 0; i < staticBlocks.size(); i++) {
+            staticBlocks.get(i).draw(g2);
+        }
         
         // Draw Pause
         g2.setColor(Color.yellow);
@@ -111,5 +144,4 @@ public class PlayManager {
             g2.drawString("PAUSED", x, y);
         }
     }
-}
-    
+} 

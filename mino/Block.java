@@ -13,8 +13,9 @@ package TetrisJava.mino;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.Rectangle;
 
-public class Block {
+public class Block extends Rectangle{
 
     public int x, y;
     public static final int SIZE = 30; // 30x30 block
@@ -26,6 +27,6 @@ public class Block {
 
     public void draw(Graphics2D g2) {
         g2.setColor(c);
-        g2.fillRect(x, y, SIZE, SIZE);
+        g2.fillRect(x + 2, y + 2, SIZE - 4, SIZE - 4);
     }
 }
